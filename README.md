@@ -1,3 +1,8 @@
-# compress_stl
+# stl_compresser
 
-usage: `python compress_stl.py`
+usage: 
+
+```bash
+pip install -r requirements.txt
+python stl_compresser.py
+```
