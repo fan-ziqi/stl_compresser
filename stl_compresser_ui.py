@@ -44,6 +44,15 @@ def compress_stl(input_paths, output_path, target_triangles, progress_bar, progr
     on_complete()
 
 def compress():
+    input_paths = input_entry.get()
+    output_path = output_entry.get()
+
+    # Check if input and output paths are empty
+    if not input_paths or not output_path:
+        # Show a message to the user indicating missing input/output
+        tk.messagebox.showinfo("Error", "Please select input file(s) and output folder.")
+        return
+
     # Disable buttons, entry, and slider
     compress_button.config(state=tk.DISABLED)
     choose_button.config(state=tk.DISABLED)
@@ -52,8 +61,6 @@ def compress():
     input_entry.config(state=tk.DISABLED)
     output_entry.config(state=tk.DISABLED)
 
-    input_paths = input_entry.get()
-    output_path = output_entry.get()
     target_triangles = int(slider.get())
 
     progress_bar["value"] = 0
@@ -77,9 +84,11 @@ def compress():
     # Start the thread
     compress_thread.start()
 
-window = tk.Tk()
-window.title("STL Compressor v1.1 | Made by github@fan-ziqi")
-window.resizable(False, False)  # Disable resizing
+root = tk.Tk()
+root.title("STL Compressor")
+root.resizable(False, False)  # Disable resizing
+
+window = tk.Frame(root)
 
 # Input selection
 input_label = tk.Label(window, text="Select Input File(s):")
@@ -127,6 +136,18 @@ progress_bar.pack()
 compress_button = tk.Button(window, text="Compress", command=compress)
 compress_button.pack()
 
-window.geometry("450x250")
+separator = ttk.Separator(window, orient='horizontal')
+separator.pack(fill='x')
+
+bottom_frame = tk.Frame(window)
+bottom_frame.pack(side=tk.BOTTOM, fill=tk.X)
+
+version_label = tk.Label(bottom_frame, text="STL Compressor v1.2")
+version_label.pack(side=tk.LEFT)
+
+licence_label = tk.Label(bottom_frame, text="Made by github@fan-ziqi")
+licence_label.pack(side=tk.RIGHT)
+
+window.grid(row=0, column=0)
 
 window.mainloop()
